@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Mis movidas
+00_Pruebas_database.ipynb
