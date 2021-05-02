@@ -1,9 +1,29 @@
-import re
+# realizado por 'Solo' a 01/05/2021
+
+
+
+#----------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------
+
+
 import nltk
+import pandas as pd
+import re
+import sys
+
 from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
 nltk.download('stopwords')
 nltk.download('vader_lexicon')
+
+sys.path.append("../")
+
+
+#----------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------
+
+
 
 def limpiar_autores(elem):
     if '??' in elem:
@@ -12,16 +32,20 @@ def limpiar_autores(elem):
         return elem
 
 
+
 def nombre_apellido_may(elem):
     return elem.title().strip(',')
+
 
 
 def quitar_nonsource(elem):
     return re.sub(r'attributed-no-source;', '', elem)
 
 
+
 def list_tag(elem):
     return elem.split(';')
+
 
 
 def eliminar_misattributed(elem):
@@ -30,8 +54,11 @@ def eliminar_misattributed(elem):
             elem.remove(tag)
     return elem
 
+
+
 def columna_str_tags(elem):
     return ','.join(elem)
+
 
 
 def reduce_quote(elem):
@@ -49,9 +76,11 @@ def reduce_quote(elem):
     return " ".join(respuesta)
 
 
+
 def sentiment_compound(elem):
     sia = SentimentIntensityAnalyzer()
     return sia.polarity_scores(elem)['compound']
+
 
 
 def sentiment_pos(elem):

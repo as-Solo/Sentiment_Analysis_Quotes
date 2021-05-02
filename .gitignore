@@ -131,3 +131,4 @@ dmypy.json
 
 # Mis movidas
 00_Pruebas_database.ipynb
+01_Pruebas_gestion_db.ipynb
