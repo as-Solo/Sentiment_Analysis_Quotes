@@ -27,10 +27,10 @@ estructura = {
 
 ### CITAS DE AUTOR
 Esta función devuelve todas las citas de un autor que se pasará por parámetro que se encuentren en la base de datos.
-#### los dos parámetros a tener en cuenta son:
+#### Los dos parámetros a tener en cuenta son:
 URL : 'http://localhost:5000/mensaje_autor'
 
-nombre_autor
+nombre = *
 
 Se concatenarán ambos argumentos para obtener dicha información
 
@@ -56,6 +56,7 @@ frases
 
 ```
 <br/>
+
 ### CITA RANDOM
 Esta función devuelve cita aleatoria que se encuentren en la base de datos.
 #### El único parámetro a tener en cuenta son:
@@ -75,14 +76,15 @@ data
 
 ```
 <br/>
+
 ### CITAS POSITIVAS
 Esta función devuelve un numero de citas a determinar con una valoración del Sentiment positiva con un valor a elegir.
 #### Los parámetros y argumentos a tener en cuenta son:
 URL : 'http://localhost:5000/citas_positivas'
 
-valor_minimo_de_positividad = (puede ser int o float y determina qué valor debe tener el sentiment como mínimo para que la frase sea mostrada)
+mayor = (puede ser int o float y determina qué valor debe tener el sentiment como mínimo para que la frase sea mostrada)
 
-numero_de_frases = *(debe ser un int y determina el número de citas a mostrar)
+numero = *(debe ser un int y determina el número de citas a mostrar)
 
 #### Un ejemplo de request sería:
 
@@ -106,14 +108,15 @@ citas
 ```
 
 <br/>
+
 ### CITAS NEGATIVAS
 Esta función devuelve un numero de citas a determinar con una valoración del Sentiment negativa con un valor a elegir.
 #### Los parámetros y argumentos a tener en cuenta son:
 URL : 'http://localhost:5000/citas_negativas'
 
-valor_minimo_de_negatividad = (puede ser int o float y determina qué valor debe tener el sentiment como mínimo para que la frase sea mostrada)
+mayor = (puede ser int o float y determina qué valor debe tener el sentiment como mínimo para que la frase sea mostrada)
 
-numero_de_frases = *(debe ser un int y determina el número de citas a mostrar)
+numero = *(debe ser un int y determina el número de citas a mostrar)
 
 #### Un ejemplo de request sería:
 
@@ -137,14 +140,15 @@ citas
 ```
 
 <br/>
+
 ### CITAS COMPOUND NEGATIVAS
 Esta función devuelve un numero de citas a determinar con una valoración del Sentiment compound negativa con un valor a elegir.
 #### Los parámetros y argumentos a tener en cuenta son:
 URL : 'http://localhost:5000/citas_compound_neg'
 
-valor_maximo_de_compound_negativo = (puede ser int o float y determina qué valor debe tener el compound como máximo para que la frase sea mostrada)
+mayor = (puede ser int o float y determina qué valor debe tener el compound como máximo para que la frase sea mostrada)
 
-numero_de_frases = *(debe ser un int y determina el número de citas a mostrar)
+numero = *(debe ser un int y determina el número de citas a mostrar)
 
 #### Un ejemplo de request sería:
 
@@ -168,14 +172,15 @@ citas
 ```
 
 <br/>
+
 ### CITAS COMPOUND POSITIVAS
 Esta función devuelve un numero de citas a determinar con una valoración del Sentiment compound positiva con un valor a elegir.
 #### Los parámetros y argumentos a tener en cuenta son:
 URL : 'http://localhost:5000/citas_compound_pos'
 
-valor_minimo_de_compound_positivo = (puede ser int o float y determina qué valor debe tener el compound como mínimo para que la frase sea mostrada)
+mayor = (puede ser int o float y determina qué valor debe tener el compound como mínimo para que la frase sea mostrada)
 
-numero_de_frases = *(debe ser un int y determina el número de citas a mostrar)
+numero = *(debe ser un int y determina el número de citas a mostrar)
 
 #### Un ejemplo de request sería:
 
@@ -196,4 +201,216 @@ citas
   'cita': 'Yesterday is history, tomorrow is a mystery, today is a gift of God, which is why we call it the present.',
   'cita_sentiment_(P/N/C)': [0.6124]}]
 
+```
+
+<br/>
+
+### CITAS CON UN CONTENIDO ESPECÍFICO
+Esta función devuelve todas las citas que tengan un contenido a determinar por el usuario.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/citas_que_contienen'
+
+extracto = (es el contenido que se busca que tenga la cita)
+
+Se concatenarán ambos parámetros
+
+#### Un ejemplo de request sería:
+
+```
+url_cont = "http://localhost:5000/citas_que_contienen"
+extracto = 'live is'
+citas = requests.get(url_cont + extracto).json()
+citas
+```
+[Output]:
+
+```
+[{'_id': 100,
+  'autor': 'Agatha Christie',
+  'cita': 'I like living. I have sometimes been wildly, despairingly, acutely miserable, racked with sorrow; but through it all I still know quite certainly that just to be alive is a grand thing.'},
+ {'_id': 723,
+  'autor': 'Emily Dickinson',
+  'cita': 'To live is so startling it leaves little time for anything else.'},
+ {'_id': 733,
+  'autor': 'Louis C.K.',
+  'cita': 'I’m bored’ is a useless thing to say. I mean, you live in a great, big, vast world that you’ve seen none percent of. Even the inside of your own mind is endless; it goes on forever, inwardly, do you understand? The fact that you’re alive is amazing, so you don’t get to say ‘I’m bored.'},
+ {'_id': 1199,
+  'autor': 'Michel Houellebecq',
+  'cita': 'The absence of the will to live is, alas, not sufficient to make one want to die.'},
+ {'_id': 2950,
+  'autor': 'Kofi Annan',
+  'cita': 'To live is to choose. But to choose well, you must know who you are and what you stand for, where you want to go and why you want to get there.'}]
+```
+
+
+
+<br/>
+
+## FUNCIONES POST
+
+<br/>
+
+### INTRODUCIR UNA NUEVA CITA
+Esta función permite al usuario introducir una nueva cita en la base de datos, para ello tendrá que ofrecer la cita, el autor y al menos una eitiqueta. Si la frase ya se encuentra en la base de datos no se añadirá.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/nueva_cita'
+
+autor = *
+
+cita = +
+
+etiquetas = (Debe ser una string, separando las distintas etiquetas con un espacio)
+
+#### Un ejemplo de request sería:
+
+```
+url = 'http://localhost:5000/nueva_cita'
+datos = {'autor': 'Solo',
+ 'cita': 'Sólo sé que no sé Python',
+ 'etiquetas': 'realidad vacío',
+        }
+
+requests.post(url, data = datos)
+
+# Esto es código para confirmar que se ha intrudocido la frase correctamente
+frases = requests.get(url_citas + 'Solo').json()
+frases
+```
+[Output]:
+
+```
+[{'cita': 'Sólo sé que no sé Python'}]
+```
+
+
+<br/>
+
+
+### ELIMINAR UNA CITA
+Esta función permite al usuario eliminar una cita en la base de datos, para ello tendrá que ofrecer el id.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/eliminar_cita'
+
+_id = (Tiene que ser un int y el indice tiene que existir en la base de datos)
+
+#### Un ejemplo de request sería:
+
+```
+url_borrar = "http://localhost:5000/eliminar_cita"
+datos = {'_id' : 2964}
+requests.post(url_borrar, data =datos)
+```
+
+
+<br/>
+
+
+### MODIFICAR UNA CITA
+Esta función permite al usuario modificar una cita en la base de datos, para ello se tiene que ofrecer el la cita que se quiere modificar y la nueva frase ya modificada.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/modificar_cita'
+
+antigua = (Tiene que coincidir con una frase que se encuentre en la base de datos)
+
+buena = (La frase por la que se quiere sustituir la cita seleccionada
+
+#### Un ejemplo de request sería:
+
+```
+url_modificar = "http://localhost:5000/modificar_cita"
+datos = {'antigua' : 'Sólo sé que no sé Python', 'buena' : 'mimimimimimimim imimimim '}
+requests.post(url_modificar, data =datos)
+```
+
+<br/>
+
+
+### MODIFICAR EL AUTOR DE UNA CITA
+Esta función permite al usuario modificar el autor de una cita que se encuentre en la base de datos, para ello se tiene que ofrecer la cita de dicho autor y el nuevo autor.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/modificar_autor_de_cita'
+
+cita = (Tiene que coincidir con una cita que se encuentre en la base de datos)
+
+autor = (El autor la cita seleccionada)
+
+#### Un ejemplo de request sería:
+
+```
+url_modificar = "http://localhost:5000/modificar_autor_de_cita"
+datos = {'cita' : 'Sólo sé que no sé Python', 'autor' : 'Anónimo'}
+requests.post(url_modificar, data =datos)
+```
+
+<br/>
+
+
+### MODIFICAR EL AUTOR POR EL ÍNDICE
+Esta función permite al usuario modificar el autor de una cita mediante el índice, para ello se tiene que ofrecer el índice de la cita y el nuevo autor.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/modificar_autor_por_indice'
+
+index = (Tiene que ser un integer y debe de existir en la base de datos)
+
+autor = (Nombre del nuevo autor)
+
+#### Un ejemplo de request sería:
+
+```
+url_modificar_a = "http://localhost:5000/modificar_autor_por_indice"
+datos = {'index' : 2964, 'autor' : 'Solo'}
+requests.post(url_modificar_a, data =datos)
+```
+
+<br/>
+
+
+### MODIFICAR UNA CITA POR EL ÍNDICE
+Esta función permite al usuario modificar una cita mediante el índice, para ello se tiene que ofrecer el índice de la cita y la nueva cita.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/modificar_autor_por_indice'
+
+index = (Tiene que ser un integer y debe de existir en la base de datos)
+
+cita = (Cita modificada)
+
+#### Un ejemplo de request sería:
+
+```
+url_modificar_c = "http://localhost:5000/modificar_cita_por_indice"
+datos = {'index' : 2964, 'cita' : 'Solo sé que no sé Java'}
+requests.post(url_modificar_c, data =datos)
+```
+
+<br/>
+
+
+### BORRAR LA COLECCIÓN
+Esta función permite al usuario borrar toda la colección de documentos que hay en la base de datos.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/borrar_coleccion'
+
+#### Un ejemplo de request sería:
+
+```
+url_borrar = "http://localhost:5000/borrar_coleccion"
+requests.post(url_borrar)
+```
+
+<br/>
+
+
+### RESTAURAR COLECCIÓN
+Esta función permite al usuario restaurar toda la colección de documentos que había en la base de datos, o bien con los valores por defecto o bien con los camnbios y las implementaciones que se hicieron hasta el momento de borrarla.
+#### Los parámetros y argumentos a tener en cuenta son:
+URL : 'http://localhost:5000/borrar_coleccion'
+
+original = (Tiene que ser un string, cualquier valor que no sea 'original' restaurará la base de datos con todos los valores añadidos y modificados, si el valor es'original, restaurará la base de datos a sus valores por defecto)
+
+#### Un ejemplo de request sería:
+
+```
+url_rest = "http://localhost:5000/restaurar_coleccion"
+datos = {'original' : 'original'}
+requests.post(url_rest, data =datos)
 ```
