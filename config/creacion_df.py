@@ -18,19 +18,6 @@ import src.tratamiento_datos as td
 #----------------------------------------------------------------------------------------
 
 
-print ('''
-
------------------------------------------------------------------------------------------
-DF   DF  DF   DF  DF   DF  DF   DF  DF   DF  DF   DF  DF   DF  DF   DF  DF   DF  DF   DF 
------------------------------------------------------------------------------------------
-
-''')
-
-
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
-
-
 
 def crear_csv():
 
@@ -62,13 +49,17 @@ def crear_csv():
 
     frases['quote_negative'] = frases.quote_words.apply(td.sentiment_neg)
 
-    frases['tags_compound'] = frases.tags_words.apply(td.sentiment_compound)
+    # he decidido hacer más liviano el csv y el json, no estaba utilizando para nada estos datos en este proyecto en particular y no tenía sentido tenerlos en mi base de datos.
 
-    frases['tags_positive'] = frases.tags_words.apply(td.sentiment_pos)
+    #frases['tags_compound'] = frases.tags_words.apply(td.sentiment_compound)
 
-    frases['tags_negative'] = frases.tags_words.apply(td.sentiment_neg)
+    #frases['tags_positive'] = frases.tags_words.apply(td.sentiment_pos)
 
-    quotes = frases[['author', 'quote', 'quote_words', 'quote_compound', 'quote_positive', 'quote_negative', 'tags', 'tags_words', 'tags_compound', 'tags_positive',  'tags_negative', 'likes']]
+    #frases['tags_negative'] = frases.tags_words.apply(td.sentiment_neg)
+
+    #quotes = frases[['author', 'quote', 'quote_words', 'quote_compound', 'quote_positive', 'quote_negative', 'tags', 'tags_words', 'tags_compound', 'tags_positive',  'tags_negative', 'likes']]
+    
+    quotes = frases[['author', 'quote', 'quote_words', 'quote_compound', 'quote_positive', 'quote_negative', 'tags', 'tags_words']]
 
     quotes.to_csv('data/quotes_sentiment.csv', index = False)
 
@@ -88,10 +79,10 @@ def crear_json():
         'cita' : row.quote,
         'cita_sentiment_(P/N/C)' : [row.quote_positive, row.quote_negative, row.quote_compound],
         'etiquetas' : [elem for elem in row.tags_words.split(',')],
-        'etiquetas_sentiment_(P/N/C)' : [row.tags_positive, row.tags_negative, row.tags_compound],
-        'likes' : row.likes,
+        #'etiquetas_sentiment_(P/N/C)' : [row.tags_positive, row.tags_negative, row.tags_compound],
+        #'likes' : row.likes,
         'cita_reducido' : row.quote_words,
-        'etiquetas_reducido' : row.tags_words,
+        #'etiquetas_reducido' : row.tags_words,
     }
         coleccion.append(estructura)
 

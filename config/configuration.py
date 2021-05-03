@@ -42,9 +42,7 @@ client = MongoClient(os.getenv('URL'))
 db = client['quotes']
 coleccion = db['sentiment']
 
-#print ('''
+
 #-----------------------------------------------------------------------------------------
-#CONFIGURACIÓN   CONFIGURACIÓN  CONFIGURACIÓN  CONFIGURACIÓN  CONFIGURACIÓN
 #-----------------------------------------------------------------------------------------
-#''')
 
