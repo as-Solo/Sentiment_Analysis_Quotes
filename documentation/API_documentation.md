@@ -405,7 +405,7 @@ Esta función permite al usuario restaurar toda la colección de documentos que 
 #### Los parámetros y argumentos a tener en cuenta son:
 URL : 'http://localhost:5000/borrar_coleccion'
 
-original = (Tiene que ser un string, cualquier valor que no sea 'original' restaurará la base de datos con todos los valores añadidos y modificados, si el valor es'original, restaurará la base de datos a sus valores por defecto)
+original = (Tiene que ser un string, cualquier valor que no sea 'original' restaurará la base de datos con todos los valores añadidos y modificados, si el valor es 'original', restaurará la base de datos a sus valores por defecto)
 
 #### Un ejemplo de request sería:
 
