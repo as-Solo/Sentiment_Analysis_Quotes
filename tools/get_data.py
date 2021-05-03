@@ -56,18 +56,22 @@ def citas_positivas(mayor_que, numero_citas):
 
 
 def citas_negativas(mayor_que, numero_citas):
+    #implementado
     return list(coleccion.find({'cita_sentiment_(P/N/C).1' : {'$gte' : float(mayor_que)}}, {"cita_sentiment_(P/N/C)" : {'$slice' : [1,1]}, 'cita' : 1, 'autor' : 1, '_id' : 0}).limit(int(numero_citas)) )
 
 
 def citas_compound_pos(mayor_que, numero_citas):
+    #implementado
     return list(coleccion.find({'cita_sentiment_(P/N/C).2' : {'$gte' : float(mayor_que)}}, {"cita_sentiment_(P/N/C)" : {'$slice' : [2,3]}, 'cita' : 1, 'autor' : 1, '_id' : 0}).limit(int(numero_citas)) )
 
 
 def citas_compound_neg(menor_que, numero_citas):
+    #implementado
     return list(coleccion.find({'cita_sentiment_(P/N/C).2' : {'$lte' : float(menor_que)}}, {"cita_sentiment_(P/N/C)" : {'$slice' : [2,3]}, 'cita' : 1, 'autor' : 1, '_id' : 0}).limit(int(numero_citas)) )
 
 
 def citas_coincidencias(a_buscar):
+    #implementado
     respuesta = qt.lista_coincidencias(a_buscar)
     return respuesta
     

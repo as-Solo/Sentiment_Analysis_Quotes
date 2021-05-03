@@ -102,6 +102,34 @@ def quitar_cita():
     post.eliminar_cita(numero)
     return 'La cita ha sido eliminada'
 
+@app.route('/modificar_cita', methods = ['POST'])
+def cambiar_cita():
+    antigua = request.form.get('antigua')
+    buena = request.form.get('buena')
+    post.modificar_cita(antigua, buena)
+    return 'La cita ha sido modificada'
+
+@app.route('/modificar_autor_de_cita', methods = ['POST'])
+def cambiar_autor_cita():
+    cita = request.form.get('cita')
+    autor = request.form.get('autor')
+    post.modificar_autor_de_cita(cita, autor)
+    return 'El autor ha sido cambiado'
+
+@app.route('/modificar_autor_por_indice', methods = ['POST'])
+def cambiar_autor_index():
+    index = request.form.get('index')
+    autor = request.form.get('autor')
+    post.modificar_autor_por_index(index, autor)
+    return 'El autor ha sido cambiado'
+
+@app.route('/modificar_cita_por_indice', methods = ['POST'])
+def cambiar_cita_index():
+    index = request.form.get('index')
+    cita = request.form.get('cita')
+    post.modificar_cita_por_index(index, cita)
+    return 'La cita ha sido cambiada'
+
 
 #----------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------

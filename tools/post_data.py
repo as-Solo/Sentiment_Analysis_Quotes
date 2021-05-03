@@ -6,6 +6,7 @@
 #----------------------------------------------------------------------------------------
 
 import json
+import tools.query_tools as qt
 import src.gestion_db as gdb
 import src.tratamiento_datos as td
 import tools.query_tools as qt
@@ -68,13 +69,64 @@ def restaurar_db(original):
 
 def eliminar_cita(numero):
     seguro = list(coleccion.find({'_id' : int(numero)}))
-    print('.............seguro.........................')
-    print (seguro)
-    #coleccion.remove({"cita" : seguro[0]['cita']})
-    
+
     if len(seguro) > 0:
         coleccion.remove({'_id' : int(numero)})
-        #coleccion.delete_one({"cita" : seguro[0]['cita']})
+        gdb.hacer_backup()
+    else:
+        print ('No se ha encontrado tu cita')
+
+def modificar_cita(antigua, buena):
+    seguro = list(coleccion.find({'cita' : antigua}))
+    
+    if qt.coincidencia(buena):
+        return 'Esa frase ya se encuentra en la base de datos'
+    
+    cita_reducido = td.reduce_quote(buena)
+    cita_sentiment = [td.sentiment_pos(buena), td.sentiment_neg(buena), td.sentiment_compound(buena)]
+
+    if len(seguro) > 0:
+        coleccion.update({'cita': antigua},{'$set':{'cita' : buena}})
+        coleccion.update({'cita_reducido': seguro[0]['cita_reducido']},{'$set':{'cita_reducido' : cita_reducido}})
+        coleccion.update({'cita_sentiment_(P/N/C)': seguro[0]['cita_sentiment_(P/N/C)']},{'$set':{'cita_sentiment_(P/N/C)' : cita_sentiment}})
+        gdb.hacer_backup()
+    else:
+        print ('No se ha encontrado tu cita')
+
+def modificar_autor_de_cita(cita, autor):
+    seguro = list(coleccion.find({'cita' : cita}))
+    
+    if len(seguro) > 0:
+        coleccion.update({'autor': seguro[0]['autor']},{'$set':{'autor' : autor}})
+        gdb.hacer_backup()
+    else:
+        print ('No se ha encontrado tu cita')
+
+
+def modificar_autor_por_index(index, autor):
+    seguro = list(coleccion.find({'_id' : int(index)}))
+    
+    if len(seguro) > 0:
+        coleccion.update({'autor': seguro[0]['autor']},{'$set':{'autor' : autor}})
+        gdb.hacer_backup()
+    else:
+        print ('No se ha encontrado tu cita')
+
+
+def modificar_cita_por_index(index, cita):
+    if qt.coincidencia(cita):
+        return 'Esa frase ya se encuentra en la base de datos'
+
+    seguro = list(coleccion.find({'_id' : int(index)}))
+
+    cita_reducido = td.reduce_quote(cita)
+    cita_sentiment = [td.sentiment_pos(cita), td.sentiment_neg(cita), td.sentiment_compound(cita)]
+    
+    if len(seguro) > 0:
+        coleccion.update({'cita': seguro[0]['cita']},{'$set':{'cita' : cita}})
+        coleccion.update({'cita_reducido': seguro[0]['cita_reducido']},{'$set':{'cita_reducido' : cita_reducido}})
+        coleccion.update({'cita_sentiment_(P/N/C)': seguro[0]['cita_sentiment_(P/N/C)']},{'$set':{'cita_sentiment_(P/N/C)' : cita_sentiment}})
+        gdb.hacer_backup()
     else:
         print ('No se ha encontrado tu cita')
 
