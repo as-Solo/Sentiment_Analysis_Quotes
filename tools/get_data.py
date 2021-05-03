@@ -5,6 +5,7 @@
 #----------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------
 
+import tools.query_tools as qt
 import random
 from config.configuration import db, coleccion
 
@@ -66,7 +67,10 @@ def citas_compound_neg(menor_que, numero_citas):
     return list(coleccion.find({'cita_sentiment_(P/N/C).2' : {'$lte' : float(menor_que)}}, {"cita_sentiment_(P/N/C)" : {'$slice' : [2,3]}, 'cita' : 1, 'autor' : 1, '_id' : 0}).limit(int(numero_citas)) )
 
 
-
+def citas_coincidencias(a_buscar):
+    respuesta = qt.lista_coincidencias(a_buscar)
+    return respuesta
+    
 
 
 #-----------------------------------------------------------------------------------------

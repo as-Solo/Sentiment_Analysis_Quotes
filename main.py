@@ -64,6 +64,11 @@ def citas_com_neg(menor, numero):
     citas = get.citas_compound_neg(menor, numero)
     return jsonify(citas)
 
+@app.route('/citas_que_contienen<extracto>')
+def citas_contains(extracto):
+    citas = get.citas_coincidencias(extracto)
+    return jsonify(citas)
+
 
 #----------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------
@@ -76,6 +81,26 @@ def inserta_frase():
     etiquetas = request.form.get('etiquetas').split(' ')
     post.entrada_nueva(autor, cita, etiquetas)
     return {'mensaje' : 'Gracias por tu aportación.'}
+
+
+@app.route('/borrar_coleccion', methods = ['POST'])
+def borrar_todo():
+    post.borrar_coleccion()
+    return 'Pues ya hemos borrado todo'
+
+
+@app.route('/restaurar_coleccion', methods = ['POST'])
+def restaurar_coleccion():
+    original = request.form.get('original')
+    post.restaurar_db(original)
+    return 'Espero que se haya restaurado'
+
+
+@app.route('/eliminar_cita', methods = ['POST'])
+def quitar_cita():
+    numero = request.form.get('_id')
+    post.eliminar_cita(numero)
+    return 'La cita ha sido eliminada'
 
 
 #----------------------------------------------------------------------------------------

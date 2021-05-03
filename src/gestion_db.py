@@ -8,6 +8,8 @@
 import dotenv
 import json
 import os
+import pandas as pd
+
 from pymongo import MongoClient
 
 
@@ -54,3 +56,15 @@ def restaurar_db():
                 
         else:
             print ('Todo está preparado para funcionar')
+
+
+
+def hacer_backup():
+    
+    db = client['quotes']
+    coleccion = db['sentiment']
+
+    backup = list(coleccion.find())
+    backup = pd.DataFrame(backup)
+    backup.to_json("data/quotes_collection_backup.json", orient="records")
+
