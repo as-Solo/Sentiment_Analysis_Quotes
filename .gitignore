@@ -132,3 +132,4 @@ dmypy.json
 # Mis movidas
 00_Pruebas_database.ipynb
 01_Pruebas_gestion_db.ipynb
+03_Script_export_MongoDB.ipynb
