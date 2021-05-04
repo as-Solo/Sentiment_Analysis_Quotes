@@ -25,7 +25,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    readme_file = open('README.md', 'r')
+    readme_file = open('API_documentation.md', 'r')
     ms_template = markdown.markdown(readme_file.read(), extensions = ['fenced_code'])
     return ms_template
 
