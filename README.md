@@ -28,6 +28,7 @@ Distintos programas y utilidades usados en este proyecto:
 * [API Four Square](https://developer.foursquare.com/docs/api-reference/venues/search/)
 * [Kepler.gl](https://kepler.gl/)
 ***
+
 ## Autor:
 
 * [Alejandro S. del Solo](https://github.com/as-Solo)
